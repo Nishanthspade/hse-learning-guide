@@ -134,10 +134,10 @@ export function AppRoutes() {
         {/* Unified Standards Knowledge Bank */}
         <Route path="/topics" element={<PageSuspense><UnifiedTopics /></PageSuspense>} />
         <Route path="/topics/:topicId" element={<PageSuspense><UnifiedTopicDetail /></PageSuspense>} />
-        <Route path="/paths" element={<PageSuspense><UnifiedLearningPaths /></PageSuspense>} />
-        <Route path="/paths/:pathId" element={<PageSuspense><UnifiedPathDetail /></PageSuspense>} />
+        <Route path="/paths/unified" element={<PageSuspense><UnifiedLearningPaths /></PageSuspense>} />
+        <Route path="/paths/unified/:pathId" element={<PageSuspense><UnifiedPathDetail /></PageSuspense>} />
         <Route path="/compare" element={<PageSuspense><UnifiedCompare /></PageSuspense>} />
-        <Route path="/glossary" element={<PageSuspense><UnifiedGlossary /></PageSuspense>} />
+        <Route path="/glossary/unified" element={<PageSuspense><UnifiedGlossary /></PageSuspense>} />
 
         {/* ADNOC HSE Interview Preparation (Legacy) */}
         <Route path="/adnoc" element={<PageSuspense><ADNOCDashboard /></PageSuspense>} />

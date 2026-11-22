@@ -1,0 +1,6 @@
+# Netlify SPA Redirect - MUST be first
+/*    /index.html   200
+
+# Legacy redirects
+/adnoc/*    /topics/:splat    301
+/modules/*    /topics/:splat    301
