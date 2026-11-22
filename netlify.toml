@@ -1,0 +1,211 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[[redirects]]
+  from = "/adnoc/*"
+  to = "/topics/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/modules/*"
+  to = "/topics/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Credentials = "true"
+
+[[rewrites]]
+  from = "/app/*"
+  to = "/:splat"
+  status = 200
+
+[[rewrites]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["**/*"]
+
+[functions."api/*"]
+  path = "api/*"
+  method = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+
+[functions."api/auth/*"]
+  path = "api/auth/*"
+  method = ["GET", "POST"]
+
+[functions."api/progress/*"]
+  path = "api/progress/*"
+  method = ["GET", "POST", "PUT"]
+
+[functions."api/assessments/*"]
+  path = "api/assessments/*"
+  method = ["GET", "POST", "PUT"]
+
+[functions."api/certificates/*"]
+  path = "api/certificates/*"
+  method = ["GET", "POST"]
+
+[functions."api/users/*"]
+  path = "api/users/*"
+  method = ["GET", "POST", "PUT", "DELETE"]
+
+[functions."api/analytics/*"]
+  path = "api/analytics/*"
+  method = ["GET"]
+
+[build.environment]
+  VITE_APP_TITLE = "HSE Learning Guide"
+  VITE_API_URL = "/api"
+  VITE_SENTRY_DSN = ""
+  VITE_GA_ID = ""
+
+[functions."api/analytics/events"]
+  path = "api/analytics/events"
+  method = ["POST"]
+
+[functions."api/certificates/verify"]
+  path = "api/certificates/verify"
+  method = ["GET", "POST"]
+
+[functions."api/search"]
+  path = "api/search"
+  method = ["GET", "POST"]
+
+[functions."api/glossary"]
+  path = "api/glossary"
+  method = ["GET"]
+
+[functions."api/frameworks"]
+  path = "api/frameworks"
+  method = ["GET"]
+
+[functions."api/paths"]
+  path = "api/paths"
+  method = ["GET"]
+
+[functions."api/topics"]
+  path = "api/topics"
+  method = ["GET"]
+
+[functions."api/progress"]
+  path = "api/progress"
+  method = ["GET", "POST", "PUT"]
+
+[functions."api/users/me"]
+  path = "api/users/me"
+  method = ["GET", "PUT"]
+
+[functions."api/users/:id"]
+  path = "api/users/:id"
+  method = ["GET", "PUT", "DELETE"]
+
+[functions."api/admin/*"]
+  path = "api/admin/*"
+  method = ["GET", "POST", "PUT", "DELETE"]
+
+[functions."api/admin/users"]
+  path = "api/admin/users"
+  method = ["GET", "POST", "PUT", "DELETE"]
+
+[functions."api/admin/content"]
+  path = "api/admin/content"
+  method = ["GET", "POST", "PUT", "DELETE"]
+
+[functions."api/admin/analytics"]
+  path = "api/admin/analytics"
+  method = ["GET"]
+
+[functions."api/admin/settings"]
+  path = "api/admin/settings"
+  method = ["GET", "PUT"]
+
+[functions."api/integrations"]
+  path = "api/integrations"
+  method = ["GET", "POST", "PUT", "DELETE"]
+
+[functions."api/webhooks/*"]
+  path = "api/webhooks/*"
+  method = ["POST"]
+
+[functions."api/webhooks/stripe"]
+  path = "api/webhooks/stripe"
+  method = ["POST"]
+
+[functions."api/webhooks/github"]
+  path = "api/webhooks/github"
+  method = ["POST"]
+
+[functions."api/webhooks/gitlab"]
+  path = "api/webhooks/gitlab"
+  method = ["POST"]
+
+[functions."api/health"]
+  path = "api/health"
+  method = ["GET"]
+
+[functions."api/version"]
+  path = "api/version"
+  method = ["GET"]
+
+[functions."api/status"]
+  path = "api/status"
+  method = ["GET"]
+
+[functions."api/ready"]
+  path = "api/ready"
+  method = ["GET"]
+
+[functions."api/live"]
+  path = "api/live"
+  method = ["GET"]
